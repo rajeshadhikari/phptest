@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def projectName = "phptest".toLowerCase()
 def scmRes
 def allowedVerificationEnvs = ['dev','stage','preprod','main']
@@ -6,7 +8,6 @@ node {
 
     properties([
             parameters([
-                choice(name: 'env', description: 'Environment to create Image', choices: allowedVerificationEnvs),
                 choice(name: 'sonarqube', description: 'Select yes if you need SonarQube code quality check for this build.', choices: sonarOptions)
             ])
         ])
@@ -14,11 +15,13 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
-        projectName = projectName + '-' + params.env
+        sh "echo 'CLONING BRANCH.......... ${BRANCH_NAME}'"
+        projectName = projectName + '-' + BRANCH_NAME
     }
 
     stage('RemoveGitDirectory') {
-        sh "echo '${scmRes.GIT_COMMIT}' > .revision"
+        sh "echo ${scmRes}"
+        sh "echo '${scmRes.GIT_COMMIT}  ${BRANCH_NAME}' > .revision"
         sh 'rm -fr .git'
     }
 
@@ -58,5 +61,3 @@ APP_NAME=${APP_NAME}
     }
 
 }
-
-

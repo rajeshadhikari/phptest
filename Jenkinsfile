@@ -14,6 +14,7 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
+        sh "echo ${scmRes}"
         projectName = projectName + '-' + scmRes.BRANCH_NAME
     }
 

@@ -14,7 +14,7 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
-        projectName = projectName + '-' + params.env
+        projectName = projectName + '-' + ${scmRes.BRANCH_NAME}
     }
 
     stage('RemoveGitDirectory') {

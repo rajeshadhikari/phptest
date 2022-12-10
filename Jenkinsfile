@@ -19,8 +19,6 @@ node {
 
     stage('RemoveGitDirectory') {
         sh "echo ${scmRes}"
-        sh "echo ${BRANCH_NAME}"
-
         sh "echo '${scmRes.GIT_COMMIT}  ${BRANCH_NAME}' > .revision"
         sh 'rm -fr .git'
     }

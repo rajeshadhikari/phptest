@@ -14,7 +14,6 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
-        sh "echo ${scmRes}"
         projectName = projectName + '-' + params.env
     }
 

@@ -14,7 +14,7 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
-        sh "Building source for Branch : '${scmRes.BRANCH_NAME}'"
+        sh "echo ${scmRes}"
         projectName = projectName + '-' + params.env
     }
 

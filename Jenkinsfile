@@ -14,7 +14,8 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
-        projectName = projectName + '-' + "${scmRes.BRANCH_NAME}"
+        sh "Building source for Branch : ${scmRes.BRANCH_NAME}"
+        projectName = projectName + '-' + params.env
     }
 
     stage('RemoveGitDirectory') {

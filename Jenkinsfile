@@ -15,12 +15,11 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
-        sh "echo 'CLONING BRANCH.......... ${BRANCH_NAME}'"
+        echo 'CLONING BRANCH.......... ' + BRANCH_NAME
         projectName = projectName + '-' + BRANCH_NAME
     }
 
     stage('RemoveGitDirectory') {
-        sh "echo ${scmRes}"
         sh "echo '${scmRes.GIT_COMMIT}  ${BRANCH_NAME}' > .revision"
         sh 'rm -fr .git'
     }

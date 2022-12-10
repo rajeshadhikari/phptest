@@ -14,11 +14,11 @@ node {
     stage('Checkout') {
         deleteDir()
         scmRes = checkout scm
-        projectName = projectName + '-' + BRANCH_NAME
+        projectName = projectName + '-' + params.env
     }
 
     stage('RemoveGitDirectory') {
-        sh "echo '${scmRes.GIT_COMMIT}' > .revision"
+        sh "echo '${scmRes.GIT_COMMIT}  ${BRANCH_NAME}' > .revision"
         sh 'rm -fr .git'
     }
 
